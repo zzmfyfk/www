@@ -60,3 +60,25 @@ div .top-20{
  position:sticky;
 }
 
+/* Button */
+#upload{
+ width:320px !important;
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Button */
+div .top-20 .btn-upload{
+ width:82px !important;
+}
+
+div .top-21 .btn-upload1{
+ width:260px !important;
+	 top:5px; position:relative;
+ top:20px;
+}
+
+div .top-21 .btn-back{
+	 top:5px; position:relative;
+ top:20px;
+}
+
