@@ -33,7 +33,15 @@
 	<div style="width: 100%;margin: auto;text-align: center;">
 		<p class="title p-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 w-2">
 			GTD_AT-Planning</p>
-<div class="top-20"><span style="margin-right:6px;">选择样式:</span><button class="btn btn-light btn-upload" id="upload-2">样式1</button><button class="btn btn-light btn-upload" id="upload-4">样式2</button><button class="btn btn-light btn-upload" id="upload-3">样式3<br>
+		<p>&nbsp;</p>
+		<p>
+		  <input type="file" id="file-input" class="bg-danger" onclick="handleFileSelect(event)">
+</p>
+<div class="top-20 ">
+	  <span style="margin-right: 6px;">识别精度:</span> <input type="text" id="size" style="width: 240px;"
+				value="200">
+</div>
+		<div class="top-20"><span style="margin-right:6px;">选择样式:</span><button class="btn btn-light btn-upload" id="upload-2">样式1</button><button class="btn btn-light btn-upload" id="upload-4">样式2</button><button class="btn btn-light btn-upload" id="upload-3">样式3<br>
       </button></div>
 		<div id="image-container">
 			    <img src="img/test.png" alt="图片">
@@ -72,14 +80,6 @@
 		}
 	}
 </script>
-		<p>&nbsp;</p>
-		<p>
-		  <input type="file" id="file-input" class="bg-danger" onclick="handleFileSelect(event)">
-</p>
-<div class="top-20 ">
-	  <span style="margin-right: 6px;">识别精度:</span> <input type="text" id="size" style="width: 240px;"
-				value="200">
-</div>
 		<div class="top-20">
 			<button class="btn btn-primary btn-upload" id="upload" onclick="upload()">上传</button>
 		<div class="top-20">
