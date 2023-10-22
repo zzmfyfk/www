@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>GTD_AT-Planning 在线处理</title>
+	<link rel="stylesheet" href="style/css/bootstrap.min.css">
+</head>
+<style>
+	body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+	}
+
+	.title {
+		width: 320px;
+		margin: 0px auto 20px;
+		font-size: 26px;
+	}
+
+	.top-20 {
+		margin-top: 20px;
+	}
+
+	.btn-upload {
+		width: 210px;
+	}
+</style>
+
+<body>
+	<div style="width: 100%;margin: auto;text-align: center;">
+		<p class="title p-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 w-2">
+			GTD_AT-Planning</p>
+<div class="top-20"><span style="margin-right:6px;">选择样式:</span><button class="btn btn-light btn-upload" id="upload-2">样式1</button><button class="btn btn-light btn-upload" id="upload-4">样式2</button><button class="btn btn-light btn-upload" id="upload-3">样式3<br>
+      </button></div>
+		<p>&nbsp;</p>
+		<p>
+		  <input type="file" id="file-input" class="bg-danger" onclick="handleFileSelect(event)">
+</p>
+<div class="top-20 ">
+	  <span style="margin-right: 6px;">识别精度:</span> <input type="text" id="size" style="width: 240px;"
+				value="200">
+</div>
+		<div class="top-20">
+			<button class="btn btn-primary btn-upload" id="upload" onclick="upload()">上传</button>
+		<div class="top-20">
+			<button class="btn btn-light btn-upload" id="upload" onclick="init()">恢复</button>
+		</div>
+	</div>
+</body>
+<script>
+	// 局域网 服务器地址
+	const host = "10.10.5.201";
+	const post = "8745";
+	let file = null;
+	let upSuccess = false;
+	let fullySuccess = false;
+	let status = null;
+
+	function getDownload(fileid) {
+		const status = setInterval(() => {
+			const xhr = new XMLHttpRequest();
+			xhr.open('get', `http://${host}:${post}/?fileid=${fileid}`);
+			xhr.onload = function () {
+				const data = JSON.parse(xhr.responseText);
+				if (xhr.status === 200) {
+					if (data.errno === 200) {
+						const upload = document.getElementById('upload');
+						upload.className = "btn btn-success btn-upload";
+						upload.innerText = "处理完成，点我下载";
+						fullySuccess = true;
+						clearInterval(status);
+					}
+				}
+			};
+
+			xhr.onerror = function () {
+				console.error('Failed to file');
+			};
+			xhr.send();
+		}, 3000);
+
+	}
+
+	function uploadFile(file) {
+		const size = document.getElementById('size');
+		const upload = document.getElementById('upload');
+		upload.innerText = "正在上传中...";
+		const formData = new FormData();
+		// formData.append('size:' + size.value, size.value);
+		formData.append('file', file);
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', `http://${host}:${post}`);
+		xhr.onload = function () {
+			const data = JSON.parse(xhr.responseText);
+			if (xhr.status === 200) {
+				console.log(data);
+				const upload = document.getElementById('upload');
+				upload.className = "btn btn-warning btn-upload";
+				upload.innerText = "正在处理...";
+				upSuccess = true;
+				localStorage.setItem("fileid", data.data.fileid);
+				const fileid = data.data.fileid;
+				setTimeout(() => {
+					getDownload(fileid);
+				}, 5000)
+			} else {
+				alert(data.error);
+			}
+		};
+
+		xhr.onerror = function () {
+			console.error('Failed to upload file');
+		};
+		xhr.setRequestHeader("size", size.value.toString())
+		xhr.send(formData);
+	}
+
+	function handleFileSelect(event) {
+		if (event.type === "change") {
+			file = event.target.files[0];
+			const fileInput = document.getElementById('file-input');
+			if (!isPdf()) {
+				fileInput.className = "bg-danger"
+				alert("请重新有效的选择pdf/PDF为后缀的文件！")
+			} else {
+				fileInput.className = "bg-success"
+			}
+		}
+	}
+
+	function isPdf() {
+		const fileName = file.name;
+		const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+		const allowedExtensions = ['.pdf', '.PDF'];
+		if (allowedExtensions.includes(fileExtension)) {
+			return true
+		} else {
+			return false
+		}
+	}
+	function upload() {
+		if (upSuccess) {
+			const fileid = localStorage.getItem("fileid");
+			if (fullySuccess) {
+				const xhr = new XMLHttpRequest();
+				xhr.open('get', `http://${host}:${post}/?fileid=${fileid}&d=t`);
+				xhr.responseType = 'arraybuffer'; // 设置响应类型为数组缓冲区
+				xhr.onload = function () {
+					if (xhr.status === 200) {
+						const arrayBuffer = xhr.response;
+						const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
+						const url = URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = `${fileid.substring(14)}.psd`;
+						a.click();
+						URL.revokeObjectURL(url);
+					}
+				};
+				xhr.onerror = function () {
+					console.error(`Download for file name ${fileid} failed.`);
+				};
+				xhr.send();
+			}
+
+		} else if (file) {
+			const fileInput = document.getElementById('file-input');
+			if (isPdf()) {
+				fileInput.className = "bg-success"
+				const size = document.getElementById('size');
+				localStorage.setItem('size', size.value);
+				uploadFile(file)
+			} else {
+				fileInput.className = "bg-danger"
+				alert("请重新有效的选择pdf/PDF为后缀的文件！")
+			}
+		}
+	}
+
+	const fileInput = document.getElementById('file-input');
+	fileInput.addEventListener('change', handleFileSelect);
+
+	if (localStorage.getItem("size")) {
+		const size = document.getElementById('size');
+		size.value = localStorage.getItem("size")
+	}
+
+	function init() {
+		location.reload()
+		// const fileInput = document.getElementById('file-input');
+		// fileInput.className = "bg-danger"
+		// fileInput.value = '';
+		// clearInterval(status)
+		// const upload = document.getElementById('upload');
+		// upload.className = "btn btn-primary btn-upload"
+		// file = null;
+		// upSuccess = false;
+		// fullySuccess = false;
+		// status = null;
+
+	}
+
+</script>
+
+</html>
