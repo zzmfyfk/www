@@ -68,6 +68,11 @@
 			yy.style.display = "none";
 			zz.style.display = "none";
 		}
+		xx.onmouseout = function(){
+			xx.style.display = "none";
+			yy.style.display = "none";
+			zz.style.display = "none";
+		}
 		bb.onmouseover = function(){
 			xx.style.display = "none";
 			yy.style.display = "block";
@@ -78,11 +83,20 @@
 			yy.style.display = "none";
 			zz.style.display = "block";
 		}
+		yy.onmouseout = function(){
+			xx.style.display = "none";
+			yy.style.display = "none";
+			zz.style.display = "none";
+		}
+		zz.onmouseout = function(){
+			xx.style.display = "none";
+			yy.style.display = "none";
+			zz.style.display = "none";
+		}
 	}
 </script>
 		<div class="top-20">
 			<button class="btn btn-primary btn-upload" id="upload" onclick="upload()">上传</button>
-		<div class="top-20">
 			<button class="btn btn-light btn-upload" id="upload" onclick="init()">恢复</button>
 		</div>
 	</div>

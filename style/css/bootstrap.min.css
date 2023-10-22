@@ -54,3 +54,9 @@ div .top-20 .btn-upload{
  border-bottom-right-radius:20px;
  box-shadow:5px 5px 5px 0px rgba(33,37,41,0.57);
 }
+
+/* Top 20 */
+div .top-20{
+ position:sticky;
+}
+
