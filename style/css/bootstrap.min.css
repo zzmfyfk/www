@@ -39,3 +39,39 @@ div .top-20 button{
 div button a{
  color:#000000;
 }
+/* Button */
+#upload{
+ border-top-left-radius:6px;
+ border-top-right-radius:6px;
+ border-bottom-left-radius:6px;
+ border-bottom-right-radius:6px;
+}
+
+/* File input */
+#file-input{
+ border-top-left-radius:6px;
+ border-top-right-radius:6px;
+ border-bottom-left-radius:6px;
+ border-bottom-right-radius:6px;
+}
+
+/* Link */
+div button a{
+ color:#000000;
+ text-decoration:none;
+ width:77px;
+}
+
+/* Button */
+div .top-20 button{
+ display:inline-block;
+ transform:translatex(0px) translatey(0px) !important;
+ width:77px;
+ border-style:none;
+ border-top-left-radius:6px;
+ border-top-right-radius:6px;
+ border-bottom-left-radius:6px;
+ border-bottom-right-radius:6px;
+ height:40px;
+}
+
