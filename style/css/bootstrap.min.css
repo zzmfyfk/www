@@ -75,3 +75,13 @@ div .top-20 button{
  height:40px;
 }
 
+/* Button */
+div .top-20 .btn-primary{
+ width:230px !important;
+}
+
+/* Button */
+div .top-20 .btn{
+ width:80px;
+}
+
