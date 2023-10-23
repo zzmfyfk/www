@@ -25,84 +25,35 @@
 	}
 
 	.btn-upload {
-		width: 210px;
+		width: 240px;
+		margin-right: 6px;
 	}
+
+.class1 {
+	width: 70px;
+	margin-right: 6px;
+}
 </style>
 
 <body>
 	<div style="width: 100%;margin: auto;text-align: center;">
 		<p class="title p-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 w-2">
 			GTD_AT-Planning</p>
-		<p>&nbsp;</p>
-		<p>
-		  <input type="file" id="file-input" class="bg-danger" onclick="handleFileSelect(event)">
-</p>
-<div class="top-20 ">
-	  <span style="margin-right: 6px;">识别精度:</span> <input type="text" id="size" style="width: 240px;"
+		<input type="file" id="file-input" class="bg-danger" onclick="handleFileSelect(event)">
+		<div class="top-20 ">
+			<span style="margin-right: 6px;">识别精度:</span> <input type="text" id="size" style="width: 240px;"
 				value="200">
-</div>
-		<div class="top-20"><span style="margin-right:6px;">选择样式:</span><button class="btn btn-light btn-upload" id="upload-2">样式1</button><button class="btn btn-light btn-upload" id="upload-4">样式2</button><button class="btn btn-light btn-upload" id="upload-3">样式3<br>
-      </button></div>
-		<div id="image-container">
-			    <img src="img/test.png" alt="图片">
-</div>
-		<div id="image-container1">
-			    <img src="img/test1.jpg" alt="图片">
-</div>
-		<div id="image-container2">
-			    <img src="img/test2.jpg" alt="图片">
-</div>
-<script>
-	window.onload = function(){
-		var aa = document.getElementById("upload-2");
-		var bb = document.getElementById("upload-3");
-		var cc = document.getElementById("upload-4");
-		var xx = document.getElementById("image-container");
-		var yy = document.getElementById("image-container1");
-		var zz = document.getElementById("image-container2");
-		xx.style.display = "none";
-		yy.style.display = "none";
-		zz.style.display = "none";
-		aa.onmouseover = function(){
-			xx.style.display = "block";
-			yy.style.display = "none";
-			zz.style.display = "none";
-		}
-		xx.onmouseout = function(){
-			xx.style.display = "none";
-			yy.style.display = "none";
-			zz.style.display = "none";
-		}
-		bb.onmouseover = function(){
-			xx.style.display = "none";
-			yy.style.display = "block";
-			zz.style.display = "none";
-		}
-		cc.onmouseover = function(){
-			xx.style.display = "none";
-			yy.style.display = "none";
-			zz.style.display = "block";
-		}
-		yy.onmouseout = function(){
-			xx.style.display = "none";
-			yy.style.display = "none";
-			zz.style.display = "none";
-		}
-		zz.onmouseout = function(){
-			xx.style.display = "none";
-			yy.style.display = "none";
-			zz.style.display = "none";
-		}
-	}
-</script>
-	
+		</div>
+		<div class="top-20 ">
+			<span style="margin-right: 6px;">选择样式:</span> <button><a href="tupian1.html">样式一</a></button> <button><a href="tupian2.html">样式三</a></button> <button><a href="tupian3.html">样式三</a></button>
+		</div>
 		<div class="top-20">
-			<button class="btn btn-light btn-upload" id="upload" onclick="init()">点击上传自定义贴图</button>
-	  </div>
-		<div class="top-21">
-			<button class="btn btn-primary btn-upload1" id="upload1" onclick="upload()">上传</button>
-			<button class="btn btn-light btn-back" id="back" onclick="init()">恢复</button>
-	  </div>
+			<button class="btn btn-primary btn-upload" id="upload" onclick="upload()">生成</button>
+			<button class="btn btn-light class1" id="upload" onclick="init()">恢复</button>
+		</div>
+		<div class="top-20">
+			
+		</div>
 	</div>
 </body>
 <script>
