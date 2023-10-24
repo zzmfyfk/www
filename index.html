@@ -28,6 +28,14 @@
 		width: 240px;
 		margin-right: 6px;
 	}
+	.btn-success {
+		width: 240px;
+		margin-right: 6px;
+	}
+	.btn-warning {
+		width: 240px;
+		margin-right: 6px;
+	}
 
 .class1 {
 	width: 70px;
@@ -74,8 +82,6 @@
 				if (xhr.status === 200) {
 					if (data.errno === 200) {
 						const upload = document.getElementById('upload');
-						upload.className = "btn btn-success btn-upload";
-						upload.style.width = "230px";
 						upload.innerText = "处理完成，点我下载";
 						fullySuccess = true;
 						clearInterval(status);
@@ -105,8 +111,6 @@
 			if (xhr.status === 200) {
 				console.log(data);
 				const upload = document.getElementById('upload');
-				upload.className = "btn btn-warning btn-upload";
-				upload.style.width = "230px";
 				upload.innerText = "正在处理...";
 				upSuccess = true;
 				localStorage.setItem("fileid", data.data.fileid);
